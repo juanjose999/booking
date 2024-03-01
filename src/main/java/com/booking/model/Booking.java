@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 @Document(collection = "bookings")
 public class Booking implements Serializable {
+
     @Serial
     private final static long serialVersionUID = 1L;
     @Id
@@ -21,5 +22,7 @@ public class Booking implements Serializable {
     private List<User> userData;
     private LocalDate startBooking;
     private LocalDate endBooking;
+
+
 
 }
