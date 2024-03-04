@@ -1,4 +1,4 @@
-package com.booking.repository;
+package com.booking.repository.user;
 
 import com.booking.model.User;
 

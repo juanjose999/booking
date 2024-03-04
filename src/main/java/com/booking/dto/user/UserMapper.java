@@ -1,4 +1,4 @@
-package com.booking.dto;
+package com.booking.dto.user;
 
 import com.booking.model.User;
 
@@ -19,6 +19,15 @@ public class UserMapper {
                 userDto.getLastName(),
                 userDto.getEmail(),
                 userDto.getPassword()
+        );
+    }
+
+    public static User userResponseDtoToUser(UserResponseDto userResponseDto){
+        return new User(
+                userResponseDto.getFirstName(),
+                userResponseDto.getLastName(),
+                userResponseDto.getEmail(),
+                userResponseDto.getPassword()
         );
     }
 }

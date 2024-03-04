@@ -1,10 +1,11 @@
-package com.booking.repository;
+package com.booking.repository.user;
 
 import com.booking.model.User;
-import com.booking.repository.mongodb.UserMongoRepository;
+import com.booking.repository.user.mongodb.UserMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -26,6 +27,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User saveUser(User user) {
+        user.setUserRegistration(LocalDate.now());
         return userMongoRepository.save(user);
     }
 

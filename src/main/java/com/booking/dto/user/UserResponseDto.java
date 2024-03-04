@@ -1,4 +1,4 @@
-package com.booking.dto;
+package com.booking.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

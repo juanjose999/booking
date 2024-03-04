@@ -1,7 +1,7 @@
-package com.booking.service;
+package com.booking.service.user;
 
-import com.booking.dto.UserDto;
-import com.booking.dto.UserResponseDto;
+import com.booking.dto.user.UserDto;
+import com.booking.dto.user.UserResponseDto;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.booking.controller;
 
-import com.booking.dto.UserDto;
-import com.booking.dto.UserResponseDto;
-import com.booking.service.UserService;
+import com.booking.dto.user.UserDto;
+import com.booking.dto.user.UserResponseDto;
+import com.booking.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/v1/users")
 public class UserController {
     @Autowired
     private UserService userService;

@@ -1,9 +1,9 @@
-package com.booking.service;
+package com.booking.service.user;
 
-import com.booking.dto.UserDto;
-import com.booking.dto.UserMapper;
-import com.booking.dto.UserResponseDto;
-import com.booking.repository.UserRepository;
+import com.booking.dto.user.UserDto;
+import com.booking.dto.user.UserMapper;
+import com.booking.dto.user.UserResponseDto;
+import com.booking.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
