@@ -22,3 +22,4 @@ Cuando creas una nueva reserva deberas usar el endpoint de /v1/bookin, al cual t
   ]
 }
 
+![Texto Alternativo]([URL de la Imagen](https://github.com/juanjose999/booking/blob/main/hotel.png?raw=true)https://github.com/juanjose999/booking/blob/main/hotel.png?raw=true)
