@@ -1,4 +1,4 @@
-package com.booking.controller;
+package com.booking.controller.booking;
 
 import com.booking.dto.booking.BookingDto;
 import com.booking.dto.booking.BookingResponseDto;
@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/v1/booking")
 public class BookingController {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.booking.controller;
+package com.booking.controller.user;
 
 import com.booking.dto.user.UserDto;
 import com.booking.dto.user.UserResponseDto;
@@ -8,14 +8,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/v1/users")
 public class UserController {
-    @Autowired
+
     private UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+        loadSampleUsers();
+    }
+
+    public void loadSampleUsers() {
+        LocalDate fecha = LocalDate.of(2024, 2, 22);
+        UserDto userEntity = new UserDto("Ada", " Lovelace", fecha, "ada@mail.com", "passw0rd");
+        userService.createUser(userEntity);
+        UserDto adminUserEntity = new UserDto("Ada", "Admin", fecha, "admin@mail.com", "passw0rd");
+        UserResponseDto userCreated = userService.createUser(adminUserEntity);
+    }
+
 
     @GetMapping
     public ResponseEntity<List<UserResponseDto>> getAllUser(){

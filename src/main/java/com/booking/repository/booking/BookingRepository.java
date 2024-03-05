@@ -1,11 +1,8 @@
 package com.booking.repository.booking;
 
-import com.booking.dto.booking.BookingDto;
-import com.booking.dto.booking.BookingResponseDto;
-import com.booking.model.Booking;
+import com.booking.model.booking.Booking;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookingRepository {
     List<Booking> getAllBookings();

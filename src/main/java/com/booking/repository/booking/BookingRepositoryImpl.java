@@ -1,22 +1,14 @@
 package com.booking.repository.booking;
 
-import com.booking.dto.booking.BookingDto;
-import com.booking.dto.booking.BookingMapper;
-import com.booking.dto.booking.BookingResponseDto;
-import com.booking.dto.user.UserDto;
-import com.booking.dto.user.UserMapper;
-import com.booking.dto.user.UserResponseDto;
-import com.booking.model.Booking;
-import com.booking.model.User;
+import com.booking.model.booking.Booking;
+import com.booking.model.user.User;
 import com.booking.repository.booking.mongodb.BookingMongoRepository;
 import com.booking.repository.user.UserRepository;
-import com.booking.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

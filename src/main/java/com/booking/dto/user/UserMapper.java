@@ -1,6 +1,6 @@
 package com.booking.dto.user;
 
-import com.booking.model.User;
+import com.booking.model.user.User;
 
 public class UserMapper {
     public static UserResponseDto userToUserResponseDto(User user){
@@ -8,6 +8,7 @@ public class UserMapper {
                 user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
+                user.getBirthDate(),
                 user.getEmail(),
                 user.getPassword()
         );
@@ -17,6 +18,7 @@ public class UserMapper {
         return new User(
                 userDto.getFirstName(),
                 userDto.getLastName(),
+                userDto.getBirthDate(),
                 userDto.getEmail(),
                 userDto.getPassword()
         );
@@ -26,6 +28,7 @@ public class UserMapper {
         return new User(
                 userResponseDto.getFirstName(),
                 userResponseDto.getLastName(),
+                userResponseDto.getBirthDate(),
                 userResponseDto.getEmail(),
                 userResponseDto.getPassword()
         );

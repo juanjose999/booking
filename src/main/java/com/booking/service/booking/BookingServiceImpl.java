@@ -6,14 +6,11 @@ import com.booking.dto.booking.BookingResponseDto;
 import com.booking.dto.user.UserDto;
 import com.booking.dto.user.UserMapper;
 import com.booking.dto.user.UserResponseDto;
-import com.booking.model.Booking;
 import com.booking.repository.booking.BookingRepository;
 import com.booking.service.user.UserService;
-import com.mongodb.client.model.Collation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -60,6 +57,7 @@ public class BookingServiceImpl implements BookingService{
         // Create a new BookingDto with the saved user
         BookingDto newBookingDto = new BookingDto(
                 bookingDto.getNameHotel(),
+                bookingDto.getRoomNumber(),
                 bookingDto.getStartBooking(),
                 bookingDto.getDurationBooking(),
                 bookingDto.getEndBooking(),

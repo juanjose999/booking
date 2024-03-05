@@ -2,7 +2,7 @@ package com.booking;
 
 import com.booking.dto.booking.BookingDto;
 import com.booking.dto.booking.BookingResponseDto;
-import com.booking.model.User;
+import com.booking.model.user.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

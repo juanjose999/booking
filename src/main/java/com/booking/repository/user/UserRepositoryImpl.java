@@ -1,12 +1,13 @@
 package com.booking.repository.user;
 
-import com.booking.model.User;
+import com.booking.model.user.User;
 import com.booking.repository.user.mongodb.UserMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -26,6 +27,21 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public Optional<User> findByEmail(String email) {
+        Optional<User> userFound = userMongoRepository.findByEmail(email);
+        if (userFound.isPresent()){
+            return userFound;
+        }else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public User createUser(User user) {
+        return userMongoRepository.save(user);
+    }
+
+    @Override
     public User saveUser(User user) {
         user.setUserRegistration(LocalDate.now());
         return userMongoRepository.save(user);
@@ -37,6 +53,7 @@ public class UserRepositoryImpl implements UserRepository {
         if(searchUser != null){
             searchUser.setFirstName(user.getFirstName());
             searchUser.setLastName(user.getLastName());
+            searchUser.setBirthDate(user.getBirthDate());
             searchUser.setEmail(user.getEmail());
             searchUser.setPassword(user.getPassword());
             searchUser.setUserRegistration(searchUser.getUserRegistration());
