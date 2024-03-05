@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/booking")
@@ -28,11 +29,14 @@ public class BookingController {
     }
 
     @GetMapping("/{idBooking}")
-    public ResponseEntity<BookingResponseDto> findBookingById(@PathVariable String idBooking){
+    public ResponseEntity<BookingResponseDto> findBookingById(@PathVariable String idBooking) {
         try {
-            return new ResponseEntity<>(bookingService.findBookingById(idBooking),HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity("the user " + idBooking + " doesn't in the data base.", HttpStatus.NOT_FOUND);
+            return bookingService.findBookingById(idBooking)
+                    .map(b -> new ResponseEntity<>(b, HttpStatus.OK))
+                    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -43,18 +47,22 @@ public class BookingController {
     }
 
     @PutMapping("/{idBooking}")
-    public ResponseEntity<Boolean> updateBooking(@PathVariable String idBooking, @RequestBody BookingDto bookingDto){
-        try{
+    public ResponseEntity<?> updateBooking(@PathVariable String idBooking, @RequestBody BookingDto bookingDto){
+        try {
             Boolean isUpdateBooking = bookingService.updateBooking(idBooking, bookingDto);
-            if(isUpdateBooking){
-                return new ResponseEntity("The booking is update", HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            if (isUpdateBooking) {
+                // Puedes devolver el objeto actualizado si es necesario
+                Optional<BookingResponseDto> updatedBookingResponse = bookingService.findBookingById(idBooking);
+                return new ResponseEntity<>(updatedBookingResponse, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("The booking is not found", HttpStatus.NOT_FOUND);
             }
-        }catch (NoSuchElementException e){
-            return new ResponseEntity("The booking " + idBooking + " doesn't in the data base.", HttpStatus.BAD_REQUEST);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>("The booking " + idBooking + " doesn't exist in the database.", HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @DeleteMapping("/{idBooking}")
     public ResponseEntity<Boolean> deleteBooking(@PathVariable String idBooking){

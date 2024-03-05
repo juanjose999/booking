@@ -36,8 +36,8 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
-    public BookingResponseDto findBookingById(String idBooking) {
-        return BookingMapper.bookingToBookingResponseDto(bookingRepository.findBookingById(idBooking));
+    public Optional<BookingResponseDto> findBookingById(String idBooking) {
+        return Optional.of(BookingMapper.bookingToBookingResponseDto(bookingRepository.findBookingById(idBooking)));
     }
 
     @Override

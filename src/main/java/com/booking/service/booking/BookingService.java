@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface BookingService {
     List<BookingResponseDto> getAllBooking();
-    BookingResponseDto findBookingById(String idBooking);
+    Optional<BookingResponseDto> findBookingById(String idBooking);
     BookingResponseDto saveBooking(BookingDto bookingDto);
 
     BookingResponseDto saveBookingWithUser(BookingDto bookingDto);
