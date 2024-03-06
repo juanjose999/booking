@@ -33,4 +33,13 @@ public class UserMapper {
                 userResponseDto.getPassword()
         );
     }
+    public static UserDto userToUserDto (User user){
+        return new UserDto(
+                user.getFirstName(),
+                user.getLastName(),
+                user.getBirthDate(),
+                user.getEmail(),
+                user.getPassword()
+        );
+    }
 }

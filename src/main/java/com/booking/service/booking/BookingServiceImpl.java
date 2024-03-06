@@ -6,7 +6,10 @@ import com.booking.dto.booking.BookingResponseDto;
 import com.booking.dto.user.UserDto;
 import com.booking.dto.user.UserMapper;
 import com.booking.dto.user.UserResponseDto;
+import com.booking.model.user.RoleEnum;
+import com.booking.model.user.User;
 import com.booking.repository.booking.BookingRepository;
+import com.booking.repository.user.UserRepository;
 import com.booking.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,9 @@ public class BookingServiceImpl implements BookingService{
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<BookingResponseDto> getAllBooking() {

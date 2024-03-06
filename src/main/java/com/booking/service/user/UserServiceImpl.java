@@ -3,6 +3,7 @@ package com.booking.service.user;
 import com.booking.dto.user.UserDto;
 import com.booking.dto.user.UserMapper;
 import com.booking.dto.user.UserResponseDto;
+import com.booking.model.user.RoleEnum;
 import com.booking.model.user.User;
 import com.booking.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto createUser(UserDto userDto) {
         return UserMapper.userToUserResponseDto(userRepository.createUser(UserMapper.userDtoToUser(userDto)));
+    }
+
+    @Override
+    public UserResponseDto createUserAdmin(UserDto userDto) {
+        User userAdmin = UserMapper.userDtoToUser(userDto);
+        userAdmin.addRole(RoleEnum.ADMIN);
+        return UserMapper.userToUserResponseDto(userRepository.createUser(userAdmin));
     }
 
     @Override

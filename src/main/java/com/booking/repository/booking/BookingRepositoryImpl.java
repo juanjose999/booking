@@ -5,6 +5,7 @@ import com.booking.model.user.User;
 import com.booking.repository.booking.mongodb.BookingMongoRepository;
 import com.booking.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -33,9 +34,14 @@ public class BookingRepositoryImpl implements BookingRepository {
     }
     @Override
     public Booking saveBooking(Booking booking) {
-        // guarda el usuario que entre por booking
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // guarda un usuario nuevo desde booking
         List<User> savedUsers = new ArrayList<>();
         for (User user : booking.getUserData()) {
+            if (!user.getPassword().startsWith("$2a$")) {
+                // Si no está codificada, la codifica antes de guardar el usuario
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
             User savedUser = userRepository.saveUser(user);
             savedUsers.add(savedUser);
         }

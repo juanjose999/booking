@@ -3,6 +3,7 @@ package com.booking.controller.booking;
 import com.booking.dto.booking.BookingDto;
 import com.booking.dto.booking.BookingResponseDto;
 import com.booking.service.booking.BookingService;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+
+import static com.booking.utils.Constants.ADMIN_ROLE;
 
 @RestController
 @RequestMapping("/v1/booking")
@@ -39,13 +42,13 @@ public class BookingController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @RolesAllowed(ADMIN_ROLE)
     @PostMapping
     public ResponseEntity<?> saveBooking(@RequestBody BookingDto bookingDto){
         BookingResponseDto responseDto = bookingService.saveBooking(bookingDto);
         return new ResponseEntity<>(responseDto,HttpStatus.CREATED);
     }
-
+    @RolesAllowed(ADMIN_ROLE)
     @PutMapping("/{idBooking}")
     public ResponseEntity<?> updateBooking(@PathVariable String idBooking, @RequestBody BookingDto bookingDto){
         try {
@@ -63,7 +66,7 @@ public class BookingController {
         }
     }
 
-
+    @RolesAllowed(ADMIN_ROLE)
     @DeleteMapping("/{idBooking}")
     public ResponseEntity<Boolean> deleteBooking(@PathVariable String idBooking){
         return new ResponseEntity(bookingService.deleteBooking(idBooking),HttpStatus.OK);

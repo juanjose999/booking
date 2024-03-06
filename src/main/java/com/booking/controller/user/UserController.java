@@ -3,6 +3,7 @@ package com.booking.controller.user;
 import com.booking.dto.user.UserDto;
 import com.booking.dto.user.UserResponseDto;
 import com.booking.service.user.UserService;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +13,17 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static com.booking.utils.Constants.ADMIN_ROLE;
+
 @RestController
 @RequestMapping("/v1/users")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
-        loadSampleUsers();
+        //loadSampleUsers();
     }
 
     public void loadSampleUsers() {
@@ -29,6 +32,7 @@ public class UserController {
         userService.createUser(userEntity);
         UserDto adminUserEntity = new UserDto("Ada", "Admin", fecha, "admin@mail.com", "passw0rd");
         UserResponseDto userCreated = userService.createUser(adminUserEntity);
+        //createUserAdmin(new UserDto("Super", "admin", fecha, "super@mail.com", "123"));
     }
 
 
@@ -49,12 +53,7 @@ public class UserController {
             return new ResponseEntity("the user " + idUser + " doesn't in the data base.", HttpStatus.NOT_FOUND);
         }
     }
-
-    @PostMapping
-    public ResponseEntity<UserResponseDto> saveUser(@RequestBody UserDto userDto){
-        return new ResponseEntity<>(userService.saveUser(userDto),HttpStatus.CREATED);
-    }
-
+    @RolesAllowed(ADMIN_ROLE)
     @PutMapping("/{idUser}")
     public ResponseEntity<Boolean> updateUser(@PathVariable String idUser,@RequestBody UserDto userDto){
         try{
@@ -68,9 +67,24 @@ public class UserController {
             return new ResponseEntity("the user " + idUser + " doesn't in the data base." , HttpStatus.NOT_FOUND);
         }
     }
+    @RolesAllowed(ADMIN_ROLE)
+    @PostMapping
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserDto userDto){
+        try{
+            return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.CREATED);
+        }catch (RuntimeException e){
+            return new ResponseEntity("An error has occurred while retrieving users", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RolesAllowed(ADMIN_ROLE)
+    @PostMapping("/createAdmin")
+    public ResponseEntity<UserResponseDto> createUserAdmin(@RequestBody UserDto userDto){
+        return new ResponseEntity<>(userService.createUserAdmin(userDto), HttpStatus.CREATED);
+    }
 
     @DeleteMapping("/{idUser}")
-    public ResponseEntity<Boolean> deleteUser(String idUser){
+    public ResponseEntity<Boolean> deleteUser(@PathVariable  String idUser){
         return new ResponseEntity<>(userService.deleteUser(idUser),HttpStatus.OK);
     }
 

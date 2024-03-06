@@ -12,6 +12,7 @@ public interface UserService {
     UserResponseDto findUserById(String idUser);
     User findByEmail(String email);
     UserResponseDto createUser(UserDto userDto);
+    UserResponseDto createUserAdmin(UserDto userDto);
     UserResponseDto saveUser(UserDto userDto);
     Boolean updateUser(String idUser, UserDto userDto);
     Boolean deleteUser(String idUser);

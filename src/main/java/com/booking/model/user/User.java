@@ -42,6 +42,9 @@ public class User implements Serializable {
     }
 
     public void addRole(RoleEnum role) {
+        if (roles == null) {
+            roles = new ArrayList<>();
+        }
         if (!roles.contains(role)) {
             roles.add(role);
         }

@@ -1,5 +1,6 @@
 package com.booking.repository.user;
 
+import com.booking.model.user.RoleEnum;
 import com.booking.model.user.User;
 import com.booking.repository.user.mongodb.UserMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User saveUser(User user) {
         user.setUserRegistration(LocalDate.now());
+        user.addRole(RoleEnum.USER);
         return userMongoRepository.save(user);
     }
 
