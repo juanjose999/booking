@@ -4,6 +4,7 @@ import com.booking.dto.booking.BookingDto;
 import com.booking.dto.booking.BookingResponseDto;
 import com.booking.model.user.User;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,9 @@ public class FakeDataBookingResponsDto {
         bookingResponseDto.setStartBooking(LocalDateTime.now());
         bookingResponseDto.setEndBooking(LocalDateTime.now().plusDays(5));
         List<User> userDataList = new ArrayList<>();
-        User user = new User("John", "Doe", "john.doe@example.com", "secure123");
+        LocalDate fecha = LocalDate.of(2024, 2, 22);
+
+        User user = new User("John", "Doe", fecha,"john.doe@example.com", "secure123");
         userDataList.add(user);
         bookingResponseDto.setUserData(userDataList);
         return bookingResponseDto;
@@ -30,7 +33,9 @@ public class FakeDataBookingResponsDto {
         bookingResponseDto.setStartBooking(LocalDateTime.now());
         bookingResponseDto.setEndBooking(LocalDateTime.now().plusDays(7));
         List<User> userDataList = new ArrayList<>();
-        User user = new User("Alice", "Johnson", "alice.johnson@example.com", "strongPassword");
+        LocalDate fecha = LocalDate.of(2024, 2, 22);
+
+        User user = new User("Alice", "Johnson", fecha,"alice.johnson@example.com", "strongPassword");
         userDataList.add(user);
         bookingResponseDto.setUserData(userDataList);
         return bookingResponseDto;
@@ -44,7 +49,9 @@ public class FakeDataBookingResponsDto {
         bookingDto.setEndBooking(LocalDateTime.now().plusDays(3));
 
         List<User> userDataList = new ArrayList<>();
-        User user = new User("Eva", "Smith", "eva.smith@example.com", "safePass123");
+        LocalDate fecha = LocalDate.of(2024, 2, 22);
+
+        User user = new User("Eva", "Smith", fecha,"eva.smith@example.com", "safePass123");
         userDataList.add(user);
 
         bookingDto.setUserData(userDataList);

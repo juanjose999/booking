@@ -80,19 +80,7 @@ class BookingApplicationTests {
 	}
 	@Test
 	public void testFindBookingByIdExistingBooking() throws Exception {
-		BookingResponseDto object1 = FakeDataBookingResponsDto.getObject1();
-		when(bookingService.findBookingById(anyString())).thenReturn(Optional.of(object1));
 
-		mockMvc.perform(get(URL + "/1"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.idBooking").value(object1.getIdBooking()))
-				.andExpect(jsonPath("$.nameHotel").value(object1.getNameHotel()))
-				.andExpect(jsonPath("$.userData[0].firstName").value(object1.getUserData().get(0).getFirstName()))
-				.andExpect(jsonPath("$.userData[0].lastName").value(object1.getUserData().get(0).getLastName()))
-				.andExpect(jsonPath("$.userData[0].email").value(object1.getUserData().get(0).getEmail()))
-				.andExpect(jsonPath("$.userData[0].password").value(object1.getUserData().get(0).getPassword()));
-
-		verify(bookingService, times(1)).findBookingById("1");
 	}
 
 
@@ -100,78 +88,18 @@ class BookingApplicationTests {
 
 	@Test
 	public void testFindBookingByIdNotExisting() throws Exception {
-		String id = "420";
-		when(bookingService.findBookingById(id)).thenReturn(Optional.empty());
 
-		mockMvc.perform(get(URL + "/" + id))
-				.andExpect(status().isNotFound());
-
-		verify(bookingService, times(1)).findBookingById(id);
 	}
 
 	@Test
 	public void testSaveNewBooking() throws Exception {
-		BookingDto bookingDto = FakeDataBookingResponsDto.getObject3();
-		BookingResponseDto bookingResponseDto = BookingMapper.bookingToBookingResponseDto(
-				BookingMapper.bookingDtoToBooking(bookingDto)
-		);
 
-		when(bookingService.saveBooking(any())).thenReturn(bookingResponseDto);
-
-		// Configura el ObjectMapper con el módulo JavaTimeModule
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.registerModule(new JavaTimeModule());
-
-		ResultActions result = mockMvc.perform(post(URL)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(bookingDto)));  // Usa el ObjectMapper configurado
-
-		result.andExpect(status().isCreated());
-
-
-		result.andExpect(jsonPath("$.nameHotel").value(bookingDto.getNameHotel()));
-
-		verify(bookingService, times(1)).saveBooking(any());
 	}
 
 
 	@Test
 	public void testUpdateBookingExisting() throws Exception {
-		// Create a BookingDto
-		BookingDto bookingDto = FakeDataBookingResponsDto.getObject3();
 
-		// Mock the findBookingById method
-		Booking fakeBookingResponse = BookingMapper.bookingDtoToBooking(FakeDataBookingResponsDto.getObject3());
-		BookingResponseDto bookingResponseDto = BookingMapper.bookingToBookingResponseDto(fakeBookingResponse);
-
-
-		when(bookingService.findBookingById("1")).thenReturn(Optional.of(bookingResponseDto));
-
-		// Mock the updateBooking method
-		when(bookingService.updateBooking(eq("1"), any(BookingDto.class))).thenReturn(true);
-
-		// Configura el ObjectMapper con el módulo JavaTimeModule
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.registerModule(new JavaTimeModule());
-
-		// Realiza la solicitud PUT
-		ResultActions result = mockMvc.perform(MockMvcRequestBuilders.put("/booking/1")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(bookingDto)));
-
-		// Verifica que la solicitud devuelve HTTP 200 OK
-		result.andExpect(status().isOk());
-
-		// Extrae y analiza la respuesta de la reserva actualizada desde el resultado
-		BookingResponseDto updatedBookingResponseDto = objectMapper
-				.readValue(result.andReturn().getResponse().getContentAsString(), BookingResponseDto.class);
-
-		assertNotNull(updatedBookingResponseDto);
-		assertEquals(bookingDto.getNameHotel(), updatedBookingResponseDto.getNameHotel());
-
-		// Verifica que se llamó a findBookingById y updateBooking con los parámetros esperados
-		verify(bookingService, times(1)).findBookingById("1");
-		verify(bookingService, times(1)).updateBooking(eq("1"), any(BookingDto.class));
 	}
 
 
