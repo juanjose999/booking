@@ -75,7 +75,6 @@ public class BookingServiceImpl implements BookingService{
     }
 
 
-
     @Override
     public Boolean updateBooking(String idBooking, BookingDto bookingDto) {
         return bookingRepository.updateBooking(idBooking, BookingMapper.bookingDtoToBooking(bookingDto));
